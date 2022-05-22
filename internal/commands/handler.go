@@ -5,7 +5,7 @@ import "fmt"
 func HandleInput(s string)bool{
 	switch s {
 		case "help":
-			fmt.Println("Coming soon...")
+			handleHelp()
 		case "exit":
 			fmt.Println("Bye!")
 			return false
