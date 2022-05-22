@@ -1,6 +1,6 @@
 # Arcade
 
-A text-based easy-to-play CLI game written in go.
+A text-based CLI game written in go.
 
 ## How to play
 

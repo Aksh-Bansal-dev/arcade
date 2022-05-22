@@ -1,16 +1,17 @@
 package player
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
-	"strings"
 )
 
 type Player struct {
-	Username string
-	Coins    int
+	Username  string `json:"username"`
+	Coins     int    `json:"coins"`
+	Gun       int    `json:"gun"`
+	Education int    `json:"education"`
 }
 
 var player Player
@@ -40,59 +41,48 @@ func getFilepath() string {
 
 func LoadPlayer(res *string) bool {
 	filepath := getFilepath()
-	if len(filepath)!=0 {if _,err:=os.Stat(filepath);err==nil{
+	if _, err := os.Stat(filepath); err == nil {
 		data, _ := ioutil.ReadFile(getFilepath())
-		arr := strings.Split(string(data), " ")
-		if arr[0]!="arcade"{
-			panic("Invalid file")
-		}
-		player.Username = arr[1]
-		val, err := strconv.Atoi(arr[2])
-		if err != nil {
-			player.Coins = 0
-		} else {
-			player.Coins = val
+		err := json.Unmarshal([]byte(data), &player)
+		if err != nil || len(data) == 0 {
+			return false
 		}
 		*res = player.Username
 		return true
-	}}
+	}
 	return false
 }
 
 func NewPlayer() {
 	player.Username = "Newbie"
 	player.Coins = 0
+	player.Gun = 0
+	player.Education = 0
 
 	filepath := getFilepath()
 	if len(filepath) != 0 {
-		var file *os.File
-		// If file exists
-		if _, err := os.Stat(filepath); err == nil {
-			val, err := os.Open(filepath)
-			if err != nil {
-				panic("Error!!")
-			}
-			file = val
-		} else {
-			// Create file if not exist
-			val, err := os.Create(filepath)
-			if err != nil {
-				panic("Error!!")
-			}
-			file = val
-		}
-		defer file.Close()
-		file.WriteString(fmt.Sprintf("arcade %s %d", player.Username, player.Coins))
-	} 	
+		Save()
+	}
 }
 
 func Save() {
-	file, err := os.Open(getFilepath())
+	if len(fileloc) == 0 {
+		return
+	}
+	file, err := os.OpenFile(getFilepath(), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
 	if err != nil {
-		panic("Error!!")
+		fmt.Println(err)
+		panic("Error: file error")
 	}
 	defer file.Close()
-	file.WriteString(fmt.Sprintf("%s %d", player.Username, player.Coins))
+	data, err := json.Marshal(player)
+	if err != nil {
+		panic("Error: could not save data")
+	}
+	if _, err := file.WriteString(string(data)); err != nil {
+		fmt.Println(err)
+		panic("")
+	}
 }
 
 func GetBalance() int {
@@ -105,4 +95,20 @@ func Credit(val int) {
 
 func Debit(val int) {
 	player.Coins -= val
+}
+
+func SetGun(val int) {
+	player.Gun = val
+}
+
+func SetEducation(val int) {
+	player.Education = val
+}
+
+func SetName(val string) {
+	player.Username = val
+}
+
+func GetPlayer() Player {
+	return player
 }
