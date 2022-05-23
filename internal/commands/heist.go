@@ -7,10 +7,9 @@ import (
 	"github.com/Aksh-Bansal-dev/arcade/internal/player"
 )
 
-const successText string = `You won 1000 coins!`
-const failText string = `You got caught!`
-
 func handleHeist() {
+	const successText string = `You won 1000 coins!`
+	const failText string = `You got caught!`
 	fmt.Print("Are you sure, you might lose your gun?(y/n)")
 	var confirm string
 	fmt.Scanf("%s", &confirm)

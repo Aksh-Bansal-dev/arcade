@@ -8,10 +8,11 @@ import (
 )
 
 type Player struct {
-	Username  string `json:"username"`
-	Coins     int    `json:"coins"`
-	Gun       int    `json:"gun"`
-	Education int    `json:"education"`
+	Username     string `json:"username"`
+	Coins        int    `json:"coins"`
+	Gun          int    `json:"gun"`
+	Education    int    `json:"education"`
+	Acheivements string `json:"acheivements"`
 }
 
 var player Player
@@ -55,6 +56,7 @@ func LoadPlayer(res *string) bool {
 
 func NewPlayer() {
 	player.Username = "Newbie"
+	player.Acheivements = ""
 	player.Coins = 0
 	player.Gun = 0
 	player.Education = 0
@@ -107,6 +109,15 @@ func SetEducation(val int) {
 
 func SetName(val string) {
 	player.Username = val
+}
+func GetName() string {
+	return player.Username
+}
+func SetAcheivements(val string) {
+	player.Acheivements = val
+}
+func GetAcheivements() string {
+	return player.Acheivements
 }
 
 func GetPlayer() Player {

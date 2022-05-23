@@ -2,13 +2,17 @@ package commands
 
 import "fmt"
 
-const helpText string =
-`
+const helpText string = `
 - help: lists all available commands.
 - exit: exits the game.
-- name <new_username>: sets username 
-` 
+- name: displays current username.
+- name <new_username>: sets username.
+- balance: shows current balance.
+- heist: try to do a heist.
+- beg: beg to get few coins.
+- acheivements: shows your acheivements.
+`
 
-func handleHelp(){
+func handleHelp() {
 	fmt.Print(helpText)
 }

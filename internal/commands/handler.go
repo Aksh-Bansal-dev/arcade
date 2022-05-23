@@ -7,6 +7,8 @@ import (
 	"github.com/Aksh-Bansal-dev/arcade/internal/player"
 )
 
+const invalidText string = "Invalid input!\nType 'help' to list all commands."
+
 func HandleInput(input string) bool {
 	arr := strings.Split(input, " ")
 
@@ -14,17 +16,20 @@ func HandleInput(input string) bool {
 	case "help":
 		handleHelp()
 	case "name":
-		player.SetName(arr[1])
-		fmt.Println("Name set to", arr[1])
+		handleName(arr)
 	case "balance":
 		fmt.Println(player.GetBalance(), "coins")
+	case "acheivements":
+		fmt.Println(player.GetAcheivements())
 	case "heist":
 		handleHeist()
+	case "beg":
+		handleBeg()
 	case "exit":
 		fmt.Println("Bye!")
 		return false
 	default:
-		fmt.Println("Invalid input!\nType 'help' to list all commands.")
+		fmt.Println(invalidText)
 	}
 	player.Save()
 	return true
