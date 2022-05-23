@@ -11,8 +11,10 @@ const helpText string = `
 - heist: try to do a heist.
 - beg: beg to get few coins.
 - buy: buy items from the shop.
+- sell: sell items that you own.
 - inventory: shows items that you've bought.
 - exit: exits the game.
+
 `
 
 func handleHelp() {
