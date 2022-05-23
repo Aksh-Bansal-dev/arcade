@@ -8,8 +8,7 @@ import (
 )
 
 func handleBeg() {
-	edu := player.GetPlayer().Education
-	res := rand.Float32()*10 - float32(edu)
+	res := rand.Float32() * 10
 	player.Credit(int(res))
 	fmt.Printf("You got %d coins!\n", int(res))
 }

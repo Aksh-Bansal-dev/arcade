@@ -25,6 +25,10 @@ func HandleInput(input string) bool {
 		handleHeist()
 	case "beg":
 		handleBeg()
+	case "buy":
+		handleBuy()
+	case "inventory":
+		fmt.Println(player.GetInventory())
 	case "exit":
 		fmt.Println("Bye!")
 		return false

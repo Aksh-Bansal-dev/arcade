@@ -8,11 +8,11 @@ import (
 )
 
 type Player struct {
-	Username     string `json:"username"`
-	Coins        int    `json:"coins"`
-	Gun          int    `json:"gun"`
-	Education    int    `json:"education"`
-	Acheivements string `json:"acheivements"`
+	Username     string   `json:"username"`
+	Coins        int      `json:"coins"`
+	Gun          int      `json:"gun"`
+	Acheivements []string `json:"acheivements"`
+	Inventory    []string `json:"inventory"`
 }
 
 var player Player
@@ -56,10 +56,8 @@ func LoadPlayer(res *string) bool {
 
 func NewPlayer() {
 	player.Username = "Newbie"
-	player.Acheivements = ""
 	player.Coins = 0
 	player.Gun = 0
-	player.Education = 0
 
 	filepath := getFilepath()
 	if len(filepath) != 0 {
@@ -103,21 +101,23 @@ func SetGun(val int) {
 	player.Gun = val
 }
 
-func SetEducation(val int) {
-	player.Education = val
-}
-
 func SetName(val string) {
 	player.Username = val
 }
 func GetName() string {
 	return player.Username
 }
-func SetAcheivements(val string) {
+func SetAcheivements(val []string) {
 	player.Acheivements = val
 }
-func GetAcheivements() string {
+func GetAcheivements() []string {
 	return player.Acheivements
+}
+func SetInventory(val []string) {
+	player.Inventory = val
+}
+func GetInventory() []string {
+	return player.Inventory
 }
 
 func GetPlayer() Player {
